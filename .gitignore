@@ -1,1 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+.ipynb_checkpoints/
+
+# macOS system files
+.DS_Store
+
+# Office temp files
+~$*.docx
+
+# Data & models (tracked with DVC instead)
+data/
+models/
+results/
+
+# VS Code
+.vscode/
+
+
 /data
+.DS_Store
+.venv/
+__pycache__/
