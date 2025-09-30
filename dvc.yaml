@@ -1,0 +1,32 @@
+stages:
+  preprocess:
+    cmd: python scripts/preprocess.py
+    deps:
+      - data
+      - scripts/preprocess.py
+    outs:
+      - data/clean.csv
+
+  features:
+    cmd: python scripts/features.py
+    deps:
+      - data/clean.csv
+      - scripts/features.py
+    outs:
+      - data/processed.csv
+
+  model:
+    cmd: python scripts/model.py
+    deps:
+      - data/processed.csv
+      - scripts/model.py
+    outs:
+      - models/model.pkl
+
+  evaluate:
+    cmd: python scripts/evaluate.py
+    deps:
+      - models/model.pkl
+      - scripts/evaluate.py
+    outs:
+      - results/metrics.json
