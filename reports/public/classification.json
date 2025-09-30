@@ -1,5 +1,3 @@
-{
-  "task": "classification",
-  "accuracy": 0.97,
-  "f1": 0.96
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:86f14381cee65f0478084aa77d0717a2d95a8e235ce54a634b19d9df66a1ed7e
+size 64
