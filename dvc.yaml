@@ -1,0 +1,57 @@
+stages:
+  preprocess:
+    cmd: python src/preprocess.py --inp data/raw/zomato_df_final_data.csv --out 
+      data/processed/clean.csv
+    deps:
+    - data/raw/zomato_df_final_data.csv
+    - src/preprocess.py
+    outs:
+    - data/processed/clean.csv
+  features:
+    cmd: python src/features.py --inp data/processed/clean.csv --out 
+      data/processed/features.csv
+    deps:
+    - data/processed/clean.csv
+    - src/features.py
+    outs:
+    - data/processed/features.csv
+  train_regression:
+    cmd: python src/train.py --task regression --data 
+      data/processed/features.csv --model_out models/reg_model.pkl --metrics_out
+      metrics/regression.json
+    deps:
+    - data/processed/features.csv
+    - src/train.py
+    outs:
+    - models/reg_model.pkl
+    metrics:
+    - metrics/regression.json:
+        cache: false
+  train_classification:
+    cmd: python src/train.py --task classification --data 
+      data/processed/features.csv --model_out models/cls_model.pkl --metrics_out
+      metrics/classification.json
+    deps:
+    - data/processed/features.csv
+    - src/train.py
+    outs:
+    - models/cls_model.pkl
+    metrics:
+    - metrics/classification.json:
+        cache: false
+  evaluate:
+    cmd: python src/evaluate.py --data data/processed/features.csv --reg_model 
+      models/reg_model.pkl --cls_model models/cls_model.pkl --summary_out 
+      metrics/summary.json --fig_reg reports/figures/regression.png --fig_cls 
+      reports/figures/classification.png
+    deps:
+    - data/processed/features.csv
+    - models/cls_model.pkl
+    - models/reg_model.pkl
+    - src/evaluate.py
+    outs:
+    - reports/figures/classification.png
+    - reports/figures/regression.png
+    metrics:
+    - metrics/summary.json:
+        cache: false

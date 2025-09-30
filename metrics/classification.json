@@ -1,0 +1,5 @@
+{
+  "task": "classification",
+  "accuracy": 0.97,
+  "f1": 0.96
+}
